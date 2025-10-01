@@ -46,9 +46,9 @@
   /* ---------- Lifecycle ---------- */
   function startGame() {
     setScore(0);
-    buildDerma();
     setScene("derma");
-  }
+    requestAnimationFrame(buildDerma);
+    }
   function restart() {
     setScore(0);
     dermaField.innerHTML = "";
@@ -65,45 +65,60 @@
     dermaField.innerHTML = "";
     setStatus(dermaStatus, "Find the suspicious lesion.");
 
-    // Ensure layout is measured after visible
-    const W = dermaField.clientWidth || dermaField.getBoundingClientRect().width;
-    const H = dermaField.clientHeight || 420;
+    // force layout measurement
+    const rect = dermaField.getBoundingClientRect();
+    const W = rect.width;
+    const H = rect.height;
 
-    const total = 12 + Math.floor(Math.random() * 4); // 12-15 lesions
+    const total = 14;
     const malignantIndex = Math.floor(Math.random() * total);
     state.derma.malignantId = `lesion-${malignantIndex}`;
 
-    for (let i = 0; i < total; i++) {
-      const el = document.createElement("div");
-      el.className = "lesion";
-      el.id = `lesion-${i}`;
+    const lesions = [];
+    const minR = 18, maxR = 32;   // benign radius
+    const minGap = 20;            // px between centers
 
-      // random position
-      const size = 28 + Math.floor(Math.random() * 36); // 28-64
-      const x = Math.max(6, Math.floor(Math.random() * (W - size - 6)));
-      const y = Math.max(6, Math.floor(Math.random() * (H - size - 6)));
-      el.style.width = `${size}px`;
-      el.style.height = `${size}px`;
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-
-      const malignant = i === malignantIndex;
-      el.dataset.malignant = malignant ? "1" : "0";
-
-      if (malignant) {
-        el.classList.add("bad");
-        // emphasize ABCDE flags
-        const big = size + 18 + Math.floor(Math.random() * 12);
-        el.style.width = `${big}px`;
-        el.style.height = `${big + (Math.random()*10|0)}px`;
-      } else {
-        el.classList.add("good");
-      }
-
-      el.addEventListener("click", onLesionClick);
-      dermaField.appendChild(el);
+    function farEnough(x, y, r){
+        return lesions.every(p => Math.hypot(x - p.x, y - p.y) >= (r + p.r + minGap));
     }
-  }
+
+    for (let i = 0; i < total; i++) {
+        let r = (i === malignantIndex) ? (maxR + 14) : (minR + Math.random() * (maxR - minR));
+        let x, y, tries = 0;
+
+        do {
+        x = r + 6 + Math.random() * (W - 2*r - 12);
+        y = r + 6 + Math.random() * (H - 2*r - 12);
+        tries++;
+        if (tries > 300) break;
+        } while(!farEnough(x, y, r));
+
+        lesions.push({ x, y, r, malignant: i === malignantIndex });
+    }
+
+    lesions.forEach((L, i) => {
+        const el = document.createElement("div");
+        el.className = "lesion";
+        el.id = `lesion-${i}`;
+        el.dataset.malignant = L.malignant ? "1" : "0";
+        el.style.width = `${L.r*2}px`;
+        el.style.height = `${L.r*2}px`;
+        el.style.left = `${L.x - L.r}px`;
+        el.style.top  = `${L.y - L.r}px`;
+
+        if (L.malignant) {
+        el.classList.add("bad");
+        el.style.transform = `rotate(${(Math.random()*20-10).toFixed(1)}deg)`;
+        } else {
+        el.classList.add("good");
+        el.style.transform = `rotate(${(Math.random()*8-4).toFixed(1)}deg)`;
+        }
+
+        el.addEventListener("click", onLesionClick);
+        dermaField.appendChild(el);
+    });
+  }   
+
 
   function onLesionClick(e) {
     const el = e.currentTarget;
@@ -111,20 +126,47 @@
     if (state.derma.clicked) return;
 
     if (isBad) {
-      el.classList.add("marked");
-      addScore(15);
-      setStatus(dermaStatus, "Nice catch! Suspicious lesion identified.");
-      state.derma.clicked = true;
-      setTimeout(goDNA, 600);
+        el.classList.add("marked");
+        addScore(15);
+        setStatus(dermaStatus, "Nice catch! Suspicious lesion identified.");
+        addABCDELabels(el);                 // <-- new: show micro-labels
+        state.derma.clicked = true;
+        setTimeout(goDNA, 900);
     } else {
-      el.classList.add("marked", "miss");
-      addScore(-3);
-      setStatus(
+        el.classList.add("marked", "miss");
+        addScore(-3);
+        setStatus(
         dermaStatus,
         "Maybe not this one. Think ABCDE: asymmetry, ragged border, variegated color, larger diameter."
-      );
-      setTimeout(() => el.classList.remove("miss"), 250);
+        );
+        setTimeout(() => el.classList.remove("miss"), 250);
     }
+    }
+
+  function addABCDELabels(targetEl){
+    const rect = targetEl.getBoundingClientRect();
+    const host = dermaField.getBoundingClientRect();
+    const centerX = rect.left - host.left + rect.width/2;
+    const centerY = rect.top  - host.top  + rect.height/2;
+
+    const labels = [
+        { txt:"A: Asymmetry",  dx: -rect.width*0.6, dy: -rect.height*0.8 },
+        { txt:"B: Border",     dx:  rect.width*0.55, dy: -rect.height*0.6 },
+        { txt:"C: Color",      dx: -rect.width*0.75, dy:  rect.height*0.2 },
+        { txt:"D: Diameter",   dx:  rect.width*0.55, dy:  rect.height*0.3 },
+    ];
+
+    labels.forEach((L)=>{
+        const tag = document.createElement("div");
+        tag.className = "abcde-label";
+        tag.textContent = L.txt;
+        tag.style.left = `${centerX + L.dx}px`;
+        tag.style.top  = `${centerY + L.dy}px`;
+        dermaField.appendChild(tag);
+        // fade out gently after a moment
+        setTimeout(()=>{ tag.style.opacity='0'; tag.style.transition='opacity .6s'; }, 1400);
+        setTimeout(()=> tag.remove(), 2100);
+    });
   }
 
   function goDNA() {
