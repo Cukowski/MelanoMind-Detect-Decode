@@ -1,5 +1,7 @@
 # MelanoMind-Detect&Decode
 
+- Try on the browser (https://cukowski.github.io/MelanoMind-Detect-Decode/)
+
 A tiny, educational, browser game. **Stage 1:** spot the most suspicious skin lesion (think **ABCDE**). **Stage 2:** find DNA base-pair anomalies (A–T = 2 bonds, G–C = 3).
 *For learning only — not a medical device.*
 
