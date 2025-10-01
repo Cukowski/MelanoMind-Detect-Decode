@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MelanoMind — Detect & Decode</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Educational demo only. Not a medical device. -->
+  <header class="topbar container">
+    <h1 class="brand">🧬 MelanoMind</h1>
+    <div class="meta">
+      <span id="score" class="pill">Score: 0</span>
+      <button id="btn-restart" class="btn btn-ghost" title="Restart game">↻ Restart</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Scene: Start -->
+    <section id="scene-start" class="scene active">
+      <div class="card">
+        <h2 class="title">Detect the suspect. Decode the DNA.</h2>
+        <p class="muted">
+          <strong>Stage 1</strong>: click the <em>most suspicious</em> lesion (think ABCDE).<br/>
+          <strong>Stage 2</strong>: find DNA pairing anomalies: A–T has 2 H-bonds, G–C has 3.
+        </p>
+        <button id="btn-start" class="btn btn-primary">Start</button>
+      </div>
+    </section>
+
+    <!-- Scene: Dermatoscopy -->
+    <section id="scene-derma" class="scene">
+      <div class="row between">
+        <h2 class="title">Stage 1 — Dermatoscopy</h2>
+        <div id="derma-hint" class="hint">ABCDE: Asymmetry, Border, Color, Diameter, Evolution</div>
+      </div>
+      <div id="derma-playfield" class="derma" aria-label="Dermatoscopy playfield"></div>
+      <div class="row between mt-8">
+        <div id="derma-status" class="status" aria-live="polite">Find the suspicious lesion.</div>
+        <button id="btn-derma-skip" class="btn btn-ghost">Skip (−5)</button>
+      </div>
+    </section>
+
+    <!-- Scene: DNA -->
+    <section id="scene-dna" class="scene">
+      <h2 class="title">Stage 2 — DNA Mismatch Finder</h2>
+      <p class="muted">Click each <strong>anomalous pair</strong> (wrong partner or wrong number of H-bonds).</p>
+      <div class="legend">
+        <span class="pill">A–T → 2 bonds</span>
+        <span class="pill">G–C → 3 bonds</span>
+      </div>
+
+      <div id="dna-board" class="dna" aria-label="DNA pairs board"></div>
+      <div class="row between mt-8">
+        <div id="dna-status" class="status" aria-live="polite">Mark all anomalies, then submit.</div>
+        <div class="row gap">
+          <button id="btn-dna-hint" class="btn btn-ghost">Give hint (−3)</button>
+          <button id="btn-dna-submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene: Result -->
+    <section id="scene-result" class="scene">
+      <div class="card">
+        <h2 class="title">Results</h2>
+        <div id="result-summary" class="summary"></div>
+        <details class="edu">
+          <summary>What happened here?</summary>
+          <p class="muted">
+            Teaching toy only: you practiced spotting a suspicious lesion (ABCDE) and identifying DNA pairing errors.
+            <strong>A</strong> pairs with <strong>T</strong> via 2 hydrogen bonds; <strong>G</strong> pairs with <strong>C</strong> via 3.
+            Mismatches and repair errors contribute to mutational processes implicated in cancers (including melanoma).
+          </p>
+        </details>
+        <button id="btn-play-again" class="btn btn-primary">Play again</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot muted">
+    Built for learning. Not diagnostic advice.
+  </footer>
+
+  <script src="game.js"></script>
+</body>
+</html>

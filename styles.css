@@ -1,0 +1,136 @@
+/* Light, simple, “Khan Academy-ish” look */
+:root{
+  --bg:#f7f9fb;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --accent:#2d7ff9;       /* primary blue */
+  --accent-ink:#ffffff;
+  --ok:#2ea44f;           /* green */
+  --bad:#d73a49;          /* red */
+  --warn:#f59e0b;         /* amber */
+  --card:#ffffff;
+  --line:#e5e7eb;
+  --skin:#fee9d7;         /* soft skin tone for playfield */
+  --bond:#5b6bff;         /* bond dot color */
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+  color:var(--ink); background:var(--bg); display:flex; flex-direction:column;
+}
+
+/* Layout */
+.container{width:min(1000px, 92vw); margin:0 auto}
+.topbar{
+  position:sticky; top:0; z-index:10;
+  background:var(--card); border-bottom:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 0;
+}
+.brand{margin:0; font-size:20px}
+.meta{display:flex; gap:10px; align-items:center}
+
+main{flex:1; padding:20px 0; display:flex; flex-direction:column; gap:16px}
+.scene{display:none}
+.scene.active{display:block}
+
+.title{margin:.2rem 0 0.6rem}
+.muted{color:var(--muted)}
+.mt-8{margin-top:8px}
+
+.card{
+  background:var(--card); border:1px solid var(--line);
+  border-radius:10px; padding:18px;
+  box-shadow:0 2px 6px rgba(0,0,0,.03);
+}
+
+/* Buttons / Pills */
+.btn{
+  border:1px solid var(--line); background:#f8fafc; color:var(--ink);
+  padding:9px 12px; border-radius:8px; cursor:pointer; font-weight:600;
+}
+.btn:hover{background:#f3f4f6}
+.btn:disabled{opacity:.6; cursor:not-allowed}
+.btn-primary{
+  background:var(--accent); color:var(--accent-ink); border-color:transparent;
+}
+.btn-primary:hover{filter:brightness(0.95)}
+.btn-ghost{background:#fff}
+
+.pill{
+  display:inline-block; padding:6px 10px; border:1px solid var(--line);
+  border-radius:999px; color:var(--muted); background:#fff; font-size:.9rem;
+}
+
+/* Flex helpers */
+.row{display:flex; align-items:center}
+.row.between{justify-content:space-between}
+.row.gap{gap:10px}
+
+/* Hints / Status */
+.status{font-weight:700}
+.hint{color:#8b5e00; background:#fff7ed; border:1px solid #fde68a; padding:6px 10px; border-radius:8px}
+
+/* Dermatoscopy field */
+.derma{
+  background:linear-gradient(180deg, #fff, #fff), var(--skin);
+  border:1px solid var(--line);
+  border-radius:12px; height:min(50vh,460px); position:relative; overflow:hidden;
+}
+
+/* Lesions */
+.lesion{
+  position:absolute; display:grid; place-items:center;
+  transition:transform .08s ease, box-shadow .15s ease;
+}
+.lesion:hover{transform:scale(1.03)}
+/* “Benign” — round, uniform color */
+.lesion.good{
+  background: radial-gradient(circle at 40% 35%, #a86d4d 0%, #8d5b3f 65%, #6a442d 100%);
+  border:1px solid rgba(0,0,0,.2); border-radius:50%;
+  box-shadow:0 1px 2px rgba(0,0,0,.06);
+}
+/* “Suspicious” — irregular, variegated */
+.lesion.bad{
+  background: conic-gradient(from 12deg, #7a482e, #4d2a1a, #a56a4a, #7a482e);
+  border:1px solid rgba(160, 45, 45, .4);
+  clip-path: polygon(12% 8%, 42% 0%, 70% 10%, 92% 28%, 100% 58%, 84% 88%, 56% 100%, 30% 92%, 10% 70%, 0% 40%);
+  box-shadow: 0 0 0 2px rgba(215,58,73,.12);
+}
+.bad.marked{outline:3px solid var(--bad); outline-offset:2px}
+.good.marked{outline:3px solid var(--ok); outline-offset:2px}
+
+.miss{animation:shake .25s ease}
+@keyframes shake{
+  0%{transform:translateX(0)}25%{transform:translateX(-4px)}
+  50%{transform:translateX(4px)}75%{transform:translateX(-2px)}100%{transform:translateX(0)}
+}
+
+/* DNA board */
+.legend{display:flex; gap:10px; margin:6px 0 10px}
+.dna{
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+  padding:12px; display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:10px;
+}
+.pair{
+  background:#ffffff; border:1px solid var(--line); border-radius:10px; padding:10px;
+  display:grid; grid-template-rows:auto auto; gap:8px; cursor:pointer; user-select:none;
+}
+.pair:hover{background:#fafafa}
+.pair .bases{display:flex; justify-content:space-between; font-weight:800; letter-spacing:.5px}
+.pair .bonds{display:flex; justify-content:center; gap:6px}
+.dot{width:8px; height:8px; border-radius:999px; background:var(--bond); opacity:.9}
+.pair.mark{outline:2px solid var(--warn); outline-offset:2px}
+.pair.ok{border-color:#c7edd3; background:#f5fff8}
+.pair.bad{border-color:#f7c6c6; background:#fff6f6}
+
+/* Result */
+.summary{line-height:1.6}
+.edu{margin-top:10px}
+
+/* Footer */
+.foot{
+  border-top:1px solid var(--line); padding:14px 0; text-align:center;
+}
