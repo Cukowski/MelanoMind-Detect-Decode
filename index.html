@@ -25,7 +25,47 @@
           <strong>Stage 1</strong>: click the <em>most suspicious</em> lesion (think ABCDE).<br/>
           <strong>Stage 2</strong>: find DNA pairing anomalies: A–T has 2 H-bonds, G–C has 3.
         </p>
-        <button id="btn-start" class="btn btn-primary">Start</button>
+
+        <!-- Optional videos gallery -->
+        <div class="videos">
+          <details class="video-card">
+            <summary>
+              <span class="play-icon" aria-hidden="true">▶</span>
+              What Is Melanoma (60s)
+            </summary>
+            <div class="video-wrap">
+              <!-- Save file next to index.html with this name -->
+              <video
+                src="what-is-melanoma.mp4"
+                controls
+                preload="metadata"
+                playsinline
+                aria-label="What is Melanoma video (no on-screen text)"
+              ></video>
+            </div>
+          </details>
+
+          <details class="video-card">
+            <summary>
+              <span class="play-icon" aria-hidden="true">▶</span>
+              Why We Built MelanoMind (33s)
+            </summary>
+            <div class="video-wrap">
+              <!-- Save file next to index.html with this name -->
+              <video
+                src="why-we-built-melanomind.mp4"
+                controls
+                preload="metadata"
+                playsinline
+                aria-label="Why we built MelanoMind video (no on-screen text)"
+              ></video>
+            </div>
+          </details>
+        </div>
+
+        <div class="start-row">
+          <button id="btn-start" class="btn btn-primary">Start</button>
+        </div>
       </div>
     </section>
 
