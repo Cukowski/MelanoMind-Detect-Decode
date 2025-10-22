@@ -1,38 +1,68 @@
-# MelanoMind-Detect&Decode
+# MelanoMind — Learn & Detect
 
-Try it in your browser:  
+**MelanoMind** is a lightweight, browser-based educational web app that connects **biology** and **software engineering**.  
+It introduces the basics of **skin cancer awareness** and **DNA mutation concepts** through short, interactive learning stages.
+
+Live version:  
 https://cukowski.github.io/MelanoMind-Detect-Decode/
 
-A minimal educational web app that connects biology and code.  
-**Stage 1:** identify the most suspicious skin lesion (ABCDE rule).  
-**Stage 2:** find DNA base-pair anomalies (A–T = 2 bonds, G–C = 3).  
-For learning only — not a medical device.
+---
 
-## Play
+## Overview
 
-1. **Dermatoscopy:** click the lesion that looks most suspicious  
-   (asymmetry, irregular border, varied color, larger diameter).  
-2. **DNA:** click every anomalous pair (wrong partner or bond count) and **Submit**.  
-3. Score = correct findings − mistakes. Restart anytime.
+### Stage 0 — Introduction
+A **scrollable / sliding intro** explains:
+- The main **types of skin cancer**  
+- What **melanoma** is and why early detection matters  
+- The **ABCDE rule** for recognizing suspicious moles  
+- How **young and old skin** may look different  
+- How **DNA mispairing** and mutations can lead to cancer  
 
-## Videos
+Slides move automatically, but users can also **click “Next” / “Prev”** or use the dots to navigate.
 
-Two optional introductory videos are available on the start page:
-- *What Is Melanoma* (1 min educational overview)  
-- *Why We Built MelanoMind* (33 s project introduction)
+---
 
-They can be opened and played directly from the browser.
+### Stage 1 — ABCDE Game
+**Goal:** Identify which mole looks suspicious.
+
+- Randomly selects from a pool of **real skin photographs**  
+  (healthy / suspicious × young / old skin).  
+- Uses the **ABCDE** method:
+  - **A**symmetry  
+  - **B**order irregularity  
+  - **C**olor variation  
+  - **D**iameter  
+  - **E**volution (changes over time)
+- Choose “Looks benign” or “Looks suspicious.”  
+- Earn or lose points based on your choices.
+
+---
+
+### Stage 2 — DNA Mismatch Finder
+**Goal:** Detect incorrect DNA base pairing.
+
+- Shows simple base pairs (**A–T = 2 bonds**, **G–C = 3 bonds**).  
+- Includes an explanatory slide with large diagrams on **how DNA mutations can cause cancer**.  
+- Users click all **mismatched or wrong-bond pairs** to simulate spotting DNA errors.  
+- Focuses only on *mispairing* as one simplified example of mutation.
+
+---
 
 ## Files
 
-- `index.html` – markup, scenes, and optional video section  
-- `styles.css` – light, Khan-Academy-style design  
-- `game.js` – full game logic, no external libraries  
-- `what-is-melanoma.mp4`, `why-we-built-melanomind.mp4` – optional local videos
+| File | Description |
+|------|--------------|
+| `index.html` | Page structure, intro carousel, and scenes |
+| `styles.css` | Responsive, clean layout inspired by Khan Academy |
+| `game.js` | Full logic for the carousel and both games |
+| `images/` | Real skin lesion photos and DNA diagrams |
+
+---
 
 ## Run Locally
 
-Open `index.html` in any browser, or start a simple server:
+Open `index.html` directly in your browser,  
+or start a lightweight local server for better path support:
 
 ```bash
 python3 -m http.server 8080
@@ -40,19 +70,29 @@ python3 -m http.server 8080
 npx serve .
 ```
 
-## Deploy on GitHub Pages
-
-1. Push all files to a GitHub repository.
-2. In **Settings → Pages**, select branch `main` and folder `/` (root).
-3. Wait a few minutes; your site will be live.
-
-## Customize
-
-* Adjust lesion density or size in `buildDerma()` (game.js).
-* Change DNA length or anomaly frequency in `buildDNA()`.
+Then open [http://localhost:8080](http://localhost:8080)
 
 ---
 
-This is an educational project for awareness and programming practice,
-not a diagnostic or medical application.
+## Deploy on GitHub Pages
 
+1. Push all files to a public GitHub repository.
+2. In **Settings → Pages**, choose branch `main` and folder `/ (root)`.
+3. Wait a few minutes — your app will be live.
+
+---
+
+## Customize
+
+* **Intro slides:** edit the `INTRO_SLIDES` array in `game.js`.
+* **Image pool:** replace or expand entries in `MOLE_POOL`.
+* **Difficulty:** adjust total rounds or scoring in `game.js`.
+* **Design:** tweak colors or sizes in `styles.css`.
+
+---
+
+## Educational Purpose
+
+This project is meant purely for **learning and awareness**.
+It is **not a diagnostic tool** and should never replace professional medical evaluation.
+The app demonstrates how **programming** can visualize complex **biological concepts** simply and interactively.
