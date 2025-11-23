@@ -9,24 +9,49 @@
   --card:#ffffff;
   --line:#e5e7eb;
   --bond:#5b6bff;
+
+  /* Worksheet 6: base grid column + gap */
+  --grid-gap:16px;
+  --col:clamp(60px, 8vw, 96px);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0; font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-  color:var(--ink); background:var(--bg); display:flex; flex-direction:column;
+  margin:0;
+  font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  display:flex;
+  flex-direction:column;
 }
 
-.container{width:min(1100px,92vw); margin:0 auto}
+.container{
+  width:min(1100px,92vw);
+  margin:0 auto;
+}
+
 .topbar{
-  position:sticky; top:0; z-index:10; background:var(--card);
-  border-bottom:1px solid var(--line); padding:12px 0; display:flex; justify-content:space-between; align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+  padding:12px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 .brand{margin:0; font-size:20px}
 .nav{display:flex; gap:8px}
 
-main{flex:1; padding:18px 0; display:flex; flex-direction:column; gap:16px}
+main{
+  flex:1;
+  padding:18px 0;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
 .section{display:none}
 .section.active{display:block}
 .title{margin:.2rem 0 .6rem}
@@ -35,13 +60,22 @@ main{flex:1; padding:18px 0; display:flex; flex-direction:column; gap:16px}
 .mt-8{margin-top:8px}
 
 .card{
-  background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px;
   box-shadow:0 2px 6px rgba(0,0,0,.03);
 }
 
+/* Buttons */
 .btn{
-  border:1px solid var(--line); background:#f8fafc; color:var(--ink);
-  padding:9px 12px; border-radius:8px; cursor:pointer; font-weight:600;
+  border:1px solid var(--line);
+  background:#f8fafc;
+  color:var(--ink);
+  padding:9px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
 }
 .btn:hover{background:#f3f4f6}
 .btn-primary{background:var(--accent); color:#fff; border-color:transparent}
@@ -51,43 +85,77 @@ main{flex:1; padding:18px 0; display:flex; flex-direction:column; gap:16px}
 .btn-bad{background:var(--bad); color:#fff; border:0}
 .btn:disabled{opacity:.6; cursor:not-allowed}
 
+/* Simple flex helpers */
 .row{display:flex; align-items:center}
 .row.gap{gap:10px}
 .row.between{justify-content:space-between}
 .pill{
-  display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--line);
-  border-radius:999px; background:#fff; color:var(--muted)
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  color:var(--muted);
 }
 
 /* ---------- Intro carousel ---------- */
 .carousel{
-  border:1px solid var(--line); border-radius:10px; background:#fff;
-  overflow:hidden; position:relative;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  overflow:hidden;
+  position:relative;
 }
 .track{
-  display:flex; transition:transform .5s ease;
+  display:flex;
+  transition:transform .5s ease;
 }
 .slide{
-  min-width:100%; padding:14px; display:grid; gap:10px;
-  grid-template-rows: auto auto; /* image, then text */
+  min-width:100%;
+  padding:14px;
+  display:grid;
+  gap:10px;
+  grid-template-rows:auto auto; /* image, then text */
 }
 .slide .imgwrap{
-  display:grid; place-items:center; background:#fff;
+  display:grid;
+  place-items:center;
+  background:#fff;
 }
 .slide img{
-  width:100%; max-height:60vh; height:auto; object-fit:contain; border-radius:10px;
+  width:100%;
+  max-height:60vh;
+  height:auto;
+  object-fit:contain;
+  border-radius:10px;
   border:1px solid var(--line);
 }
 .slide .caption{
   margin-top:8px;
 }
 .controls{
-  display:flex; justify-content:space-between; align-items:center; gap:8px;
-  padding:10px; border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:10px;
+  border-top:1px solid var(--line);
 }
-.dots{display:flex; gap:6px; align-items:center; justify-content:center; flex:1}
+.dots{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  justify-content:center;
+  flex:1;
+}
 .dot{
-  width:10px; height:10px; border-radius:999px; background:#e5e7eb; border:1px solid #d1d5db;
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  background:#e5e7eb;
+  border:1px solid #d1d5db;
 }
 .dot.active{background:#2d7ff9}
 
@@ -95,49 +163,163 @@ main{flex:1; padding:18px 0; display:flex; flex-direction:column; gap:16px}
 .abcde{margin:.2rem 0 0 1rem}
 .abcde li{margin:.2rem 0}
 .g1-stage{display:grid; gap:12px}
-.g1-figure{margin:0; display:grid; gap:8px; justify-items:center}
+.g1-figure{
+  margin:0;
+  display:grid;
+  gap:8px;
+  justify-items:center;
+}
 #g1-img{
   /* 1200x800 images: keep crisp but not huge */
-  width: min(100%, 900px);
-  max-height: 70vh;
-  height: auto;
-  object-fit: contain;
-  border-radius:10px; border:1px solid var(--line); background:#fff
+  width:min(100%, 900px);
+  max-height:70vh;
+  height:auto;
+  object-fit:contain;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
 }
-.g1-actions{display:flex; gap:10px; justify-content:center}
-.feedback{min-height:28px; text-align:center; font-weight:700}
+.g1-actions{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+.feedback{
+  min-height:28px;
+  text-align:center;
+  font-weight:700;
+}
 .feedback.ok{color:var(--good)}
 .feedback.bad{color:var(--bad)}
 
 /* ---------- Game 2 ---------- */
 .explain-figure{
-  display:grid; gap:8px; justify-items:center;
+  display:grid;
+  gap:8px;
+  justify-items:center;
 }
 .explain-figure img{
   width:min(100%, 960px);
   max-height:65vh;
   height:auto;
   object-fit:contain;
-  border-radius:10px; border:1px solid var(--line); background:#fff;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
 }
 
 .dna{
-  background:#fff; border:1px solid var(--line); border-radius:12px;
-  padding:12px; display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+  gap:10px;
 }
 .pair{
-  background:#ffffff; border:1px solid var(--line); border-radius:10px; padding:10px;
-  display:grid; gap:8px; cursor:pointer; user-select:none;
+  background:#ffffff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px;
+  display:grid;
+  gap:8px;
+  cursor:pointer;
+  user-select:none;
 }
 .pair:hover{background:#fafafa}
-.pair .bases{display:flex; justify-content:space-between; font-weight:800; letter-spacing:.4px}
-.pair .bonds{display:flex; justify-content:center; gap:6px}
-.dot{width:8px; height:8px; border-radius:999px; background:var(--bond)}
+.pair .bases{
+  display:flex;
+  justify-content:space-between;
+  font-weight:800;
+  letter-spacing:.4px;
+}
+.pair .bonds{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+}
+.pair .dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:var(--bond);
+}
 .pair.mark{outline:2px solid var(--warn); outline-offset:2px}
 .pair.ok{border-color:#c7edd3; background:#f5fff8}
 .pair.bad{border-color:#f7c6c6; background:#fff6f6}
 
 /* Footer */
 .foot{
-  border-top:1px solid var(--line); padding:12px 0; text-align:center;
+  border-top:1px solid var(--line);
+  padding:12px 0;
+  text-align:center;
+}
+
+/* ==========================
+   Worksheet 6 — Grid system
+   ========================== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, var(--col)));
+  gap:var(--grid-gap);
+  justify-content:center;
+}
+.grid.full{justify-content:stretch}
+
+/* base spans (mobile) */
+.span-1{grid-column:span 1;}
+.span-2{grid-column:span 2;}
+.span-3{grid-column:span 3;}
+.span-4{grid-column:span 4;}
+
+/* Small tablets and up */
+@media (min-width:600px){
+  .grid{
+    grid-template-columns:repeat(8, minmax(0, var(--col)));
+  }
+  .sm\:span-2{grid-column:span 2;}
+  .sm\:span-3{grid-column:span 3;}
+  .sm\:span-4{grid-column:span 4;}
+  .sm\:span-6{grid-column:span 6;}
+  .sm\:span-8{grid-column:span 8;}
+}
+
+/* Tablets / small laptops */
+@media (min-width:900px){
+  .grid{
+    grid-template-columns:repeat(12, minmax(0, var(--col)));
+  }
+  .md\:span-3{grid-column:span 3;}
+  .md\:span-4{grid-column:span 4;}
+  .md\:span-6{grid-column:span 6;}
+  .md\:span-8{grid-column:span 8;}
+  .md\:span-12{grid-column:span 12;}
+}
+
+/* Desktops */
+@media (min-width:1200px){
+  .grid{
+    grid-template-columns:repeat(12, minmax(0, var(--col)));
+  }
+  .lg\:span-3{grid-column:span 3;}
+  .lg\:span-4{grid-column:span 4;}
+  .lg\:span-5{grid-column:span 5;}
+  .lg\:span-6{grid-column:span 6;}
+  .lg\:span-7{grid-column:span 7;}
+  .lg\:span-8{grid-column:span 8;}
+  .lg\:span-12{grid-column:span 12;}
+}
+
+/* Optional vertical rhythm helper */
+.stack > * + *{
+  margin-top:var(--grid-gap);
+}
+
+/* ==========================
+   Extra responsiveness tweaks
+   ========================== */
+@media (max-width:480px){
+  .slide img{max-height:48vh;}
+  #g1-img{max-height:60vh;}
 }
