@@ -19,105 +19,129 @@
   <main class="container">
     <!-- INTRO: auto-sliding carousel with controls -->
     <section id="intro" class="section active" aria-label="Intro slides">
-      <h2 class="title">Skin Cancer Basics</h2>
-      <div class="carousel" aria-roledescription="carousel">
-        <div class="track" id="intro-track" style="transform:translateX(0);">
-          <!-- Slides injected by JS -->
+      <div class="grid">
+        <div class="span-4 sm:span-8 md:span-12 lg:span-12">
+          <h2 class="title">Skin Cancer Basics</h2>
+          <div class="carousel" aria-roledescription="carousel">
+            <div class="track" id="intro-track" style="transform:translateX(0);">
+              <!-- Slides injected by JS -->
+            </div>
+            <div class="controls">
+              <button id="intro-prev" class="btn" aria-label="Previous slide">Prev</button>
+              <div class="dots" id="intro-dots"></div>
+              <button id="intro-next" class="btn" aria-label="Next slide">Next</button>
+            </div>
+          </div>
+          <div class="slides-cta">
+            <button class="btn btn-primary" id="to-game1">Start ABCDE Game</button>
+          </div>
         </div>
-        <div class="controls">
-          <button id="intro-prev" class="btn" aria-label="Previous slide">Prev</button>
-          <div class="dots" id="intro-dots"></div>
-          <button id="intro-next" class="btn" aria-label="Next slide">Next</button>
-        </div>
-      </div>
-      <div class="slides-cta">
-        <button class="btn btn-primary" id="to-game1">Start ABCDE Game</button>
       </div>
     </section>
 
     <!-- GAME 1: ABCDE spotting -->
     <section id="game1" class="section" aria-label="ABCDE spotting game">
-      <h2 class="title">Game 1 — Spot the Suspicious Mole (ABCDE)</h2>
+      <div class="grid">
+        <!-- HUD row -->
+        <div class="span-4 sm:span-8 md:span-12 lg:span-12">
+          <h2 class="title">Game 1 — Spot the Suspicious Mole (ABCDE)</h2>
 
-      <div class="row gap mt-8">
-        <label class="pill">Skin type:
-          <select id="skinAge">
-            <option value="any">Any</option>
-            <option value="young">Young</option>
-            <option value="old">Older</option>
-          </select>
-        </label>
-        <span class="muted">Round <span id="g1-round">1</span> / <span id="g1-total">5</span></span>
-        <span class="muted">Score: <span id="g1-score">0</span></span>
-      </div>
-
-      <div class="card mt-8">
-        <h3 class="subtitle">ABCDE guide</h3>
-        <ul class="abcde">
-          <li><b>A</b>symmetry — one half doesn’t match the other</li>
-          <li><b>B</b>order — irregular or jagged edges</li>
-          <li><b>C</b>olor — multiple shades/uneven distribution</li>
-          <li><b>D</b>iameter — larger than ~6 mm</li>
-          <li><b>E</b>volution — changing size/shape/color</li>
-        </ul>
-      </div>
-
-      <div class="g1-stage mt-8">
-        <figure class="g1-figure">
-          <img id="g1-img" alt="Dermatoscopy example" />
-          <figcaption id="g1-caption" class="muted"></figcaption>
-        </figure>
-
-        <div class="g1-actions">
-          <button class="btn btn-good" id="g1-guess-healthy">Looks benign</button>
-          <button class="btn btn-bad" id="g1-guess-suspicious">Looks suspicious</button>
-          <button id="g1-next" class="btn btn-ghost" title="Skip to next image">Skip</button>
+          <div class="row gap mt-8">
+            <label class="pill">Skin type:
+              <select id="skinAge">
+                <option value="any">Any</option>
+                <option value="young">Young</option>
+                <option value="old">Older</option>
+              </select>
+            </label>
+            <span class="muted">Round <span id="g1-round">1</span> / <span id="g1-total">5</span></span>
+            <span class="muted">Score: <span id="g1-score">0</span></span>
+          </div>
         </div>
 
-        <div id="g1-feedback" class="feedback" aria-live="polite"></div>
-      </div>
+        <!-- ABCDE guide -->
+        <div class="span-4 sm:span-8 md:span-6 lg:span-6">
+          <div class="card mt-8">
+            <h3 class="subtitle">ABCDE guide</h3>
+            <ul class="abcde">
+              <li><b>A</b>symmetry — one half doesn’t match the other</li>
+              <li><b>B</b>order — irregular or jagged edges</li>
+              <li><b>C</b>olor — multiple shades/uneven distribution</li>
+              <li><b>D</b>iameter — larger than ~6 mm</li>
+              <li><b>E</b>volution — changing size/shape/color</li>
+            </ul>
+          </div>
+        </div>
 
-      <div class="slides-cta">
-        <button class="btn btn-primary" id="to-game2" disabled>Continue to DNA Game</button>
+        <!-- Image, actions, feedback, CTA -->
+        <div class="span-4 sm:span-8 md:span-6 lg:span-6">
+          <div class="g1-stage mt-8">
+            <figure class="g1-figure">
+              <img id="g1-img" alt="Dermatoscopy example" />
+              <figcaption id="g1-caption" class="muted"></figcaption>
+            </figure>
+
+            <div class="g1-actions">
+              <button class="btn btn-good" id="g1-guess-healthy">Looks benign</button>
+              <button class="btn btn-bad" id="g1-guess-suspicious">Looks suspicious</button>
+              <button id="g1-next" class="btn btn-ghost" title="Skip to next image">Skip</button>
+            </div>
+
+            <div id="g1-feedback" class="feedback" aria-live="polite"></div>
+          </div>
+
+          <div class="slides-cta">
+            <button class="btn btn-primary" id="to-game2" disabled>Continue to DNA Game</button>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- GAME 2: DNA mismatch -->
     <section id="game2" class="section" aria-label="DNA mismatch game">
-      <h2 class="title">Game 2 — DNA Mismatch Finder</h2>
+      <div class="grid">
+        <div class="span-4 sm:span-8 md:span-12 lg:span-12">
+          <h2 class="title">Game 2 — DNA Mismatch Finder</h2>
 
-      <!-- DNA explainer with larger picture and text below -->
-      <figure class="explain-figure card mt-8">
-        <img src="images/dna_explainer.png" alt="DNA double helix and base pairing" />
-        <figcaption class="muted">
-          DNA is made of base pairs: A pairs with T using two hydrogen bonds, and G pairs with C using three.
-          Cancer arises from many causes (UV damage, replication errors, environmental factors).
-          One pathway is through DNA mutations that change how cells grow and divide.
-          In this class exercise, we focus on one simplified idea: <b>mispairing</b> — bases paired incorrectly
-          (or shown with the wrong number of bonds). It’s only one kind of mutation, but it helps you visualize how small
-          errors in DNA could contribute to disease.
-        </figcaption>
-      </figure>
+          <!-- DNA explainer with larger picture and text below -->
+          <figure class="explain-figure card mt-8">
+            <img src="images/dna_explainer.png" alt="DNA double helix and base pairing" />
+            <figcaption class="muted">
+              DNA is made of base pairs: A pairs with T using two hydrogen bonds, and G pairs with C using three.
+              Cancer arises from many causes (UV damage, replication errors, environmental factors).
+              One pathway is through DNA mutations that change how cells grow and divide.
+              In this class exercise, we focus on one simplified idea: <b>mispairing</b> — bases paired incorrectly
+              (or shown with the wrong number of bonds). It is only one kind of mutation, but it helps you visualize
+              how small errors in DNA could contribute to disease.
+            </figcaption>
+          </figure>
+        </div>
 
-      <div class="row between mt-8">
-        <div class="muted">Find all anomalies, then submit.</div>
-        <div class="row gap">
-          <span class="muted">Score: <span id="g2-score">0</span></span>
-          <button class="btn btn-ghost" id="g2-hint">Hint (-3)</button>
-          <button class="btn btn-primary" id="g2-submit">Submit</button>
+        <div class="span-4 sm:span-8 md:span-12 lg:span-12">
+          <div class="row between mt-8">
+            <div class="muted">Find all anomalies, then submit.</div>
+            <div class="row gap">
+              <span class="muted">Score: <span id="g2-score">0</span></span>
+              <button class="btn btn-ghost" id="g2-hint">Hint (-3)</button>
+              <button class="btn btn-primary" id="g2-submit">Submit</button>
+            </div>
+          </div>
+
+          <div id="dna-board" class="dna mt-8" aria-label="DNA pairs board"></div>
+        </div>
+
+        <div class="span-4 sm:span-8 md:span-12 lg:span-12">
+          <figure class="explain-figure mt-8">
+            <img src="images/dna-base-mutations-adenine-thymine-cytosine-guanine.jpg" alt="Base letters and mutation concept" />
+            <figcaption class="muted">
+              Visualizing base letters (A, T, G, C). In our game, mismatches or wrong bond counts are highlighted
+              to practice the concept.
+            </figcaption>
+          </figure>
+
+          <div id="g2-summary" class="card mt-8"></div>
         </div>
       </div>
-
-      <div id="dna-board" class="dna mt-8" aria-label="DNA pairs board"></div>
-
-      <figure class="explain-figure mt-8">
-        <img src="images/dna-base-mutations-adenine-thymine-cytosine-guanine.jpg" alt="Base letters and mutation concept" />
-        <figcaption class="muted">
-          Visualizing base letters (A, T, G, C). In our game, mismatches or wrong bond counts are highlighted to practice the concept.
-        </figcaption>
-      </figure>
-
-      <div id="g2-summary" class="card mt-8"></div>
     </section>
   </main>
 
