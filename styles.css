@@ -257,7 +257,7 @@ main{
 }
 
 /* ==========================
-   Worksheet 6 — Grid system
+   Worksheet 6 - Grid system
    ========================== */
 .grid{
   display:grid;
@@ -323,3 +323,76 @@ main{
   .slide img{max-height:48vh;}
   #g1-img{max-height:60vh;}
 }
+
+
+/* ---------- Game 1: Mole Maker ---------- */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--muted);
+  font-weight:700;
+}
+.badge.badge-ok{
+  border-color:#c7edd3;
+  background:#f5fff8;
+  color:var(--good);
+}
+.badge.badge-warn{
+  border-color:#fde68a;
+  background:#fffbeb;
+  color:var(--warn);
+}
+
+.moleStage{
+  margin-top:10px;
+  display:grid;
+  place-items:center;
+  border:1px dashed var(--line);
+  border-radius:12px;
+  padding:10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+}
+#moleSvg{ width:min(420px, 100%); height:auto; display:block; }
+
+.meter{
+  display:grid;
+  gap:10px;
+}
+.label{ font-weight:800; }
+.bar{
+  height:12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  overflow:hidden;
+}
+.fill{
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background: var(--accent);
+  transition: width 200ms ease;
+}
+.hint{
+  min-height: 38px;
+  padding:10px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#fafafa;
+  font-weight:700;
+}
+
+.control{
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  margin-top:10px;
+}
+.control input[type="range"]{ width:100%; }
+.control p{ margin:6px 0 0; font-size:13px; }
