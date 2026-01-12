@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MelanoMind — Learn & Detect</title>
+  <title>MelanoMind - Learn & Detect</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar container">
-    <h1 class="brand">MelanoMind — Learn & Detect</h1>
+    <h1 class="brand">MelanoMind - Learn & Detect</h1>
     <nav class="nav">
       <button class="btn btn-ghost" id="nav-intro">Intro</button>
-      <button class="btn btn-ghost" id="nav-game1">ABCDE Game</button>
+      <button class="btn btn-ghost" id="nav-game1">Mole Maker</button>
       <button class="btn btn-ghost" id="nav-game2">DNA Game</button>
     </nav>
   </header>
@@ -33,65 +33,145 @@
             </div>
           </div>
           <div class="slides-cta">
-            <button class="btn btn-primary" id="to-game1">Start ABCDE Game</button>
+            <button class="btn btn-primary" id="to-game1">Start Mole Maker</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- GAME 1: ABCDE spotting -->
-    <section id="game1" class="section" aria-label="ABCDE spotting game">
+    <!-- GAME 1: Mole Maker (ABCDE) -->
+    <section id="game1" class="section" aria-label="ABCDE mole maker game">
       <div class="grid">
-        <!-- HUD row -->
         <div class="span-4 sm:span-8 md:span-12 lg:span-12">
-          <h2 class="title">Game 1 — Spot the Suspicious Mole (ABCDE)</h2>
-
-          <div class="row gap mt-8">
-            <label class="pill">Skin type:
-              <select id="skinAge">
-                <option value="any">Any</option>
-                <option value="young">Young</option>
-                <option value="old">Older</option>
-              </select>
-            </label>
-            <span class="muted">Round <span id="g1-round">1</span> / <span id="g1-total">5</span></span>
-            <span class="muted">Score: <span id="g1-score">0</span></span>
-          </div>
+          <h2 class="title">Game 1 - Mole Maker (ABCDE)</h2>
+          <p class="muted">
+            Move the sliders to see how ABCDE affects the mole. Pick a goal and try to reach it.
+            (Educational demo - not diagnosis.)
+          </p>
         </div>
 
-        <!-- ABCDE guide -->
+        <!-- Preview + risk meter -->
         <div class="span-4 sm:span-8 md:span-6 lg:span-6">
           <div class="card mt-8">
-            <h3 class="subtitle">ABCDE guide</h3>
-            <ul class="abcde">
-              <li><b>A</b>symmetry — one half doesn’t match the other</li>
-              <li><b>B</b>order — irregular or jagged edges</li>
-              <li><b>C</b>olor — multiple shades/uneven distribution</li>
-              <li><b>D</b>iameter — larger than ~6 mm</li>
-              <li><b>E</b>volution — changing size/shape/color</li>
-            </ul>
+            <div class="row between">
+              <h3 class="subtitle">Live preview</h3>
+              <span class="badge" id="mm-status">Adjust sliders</span>
+            </div>
+
+            <div class="moleStage" aria-label="Mole preview area">
+              <svg id="moleSvg" viewBox="-120 -120 240 240" role="img" aria-label="Stylized mole">
+                <defs>
+                  <radialGradient id="moleGrad" cx="35%" cy="30%" r="70%">
+                    <stop id="mm-gradA" offset="0%" stop-color="#6b3e2e"/>
+                    <stop id="mm-gradB" offset="70%" stop-color="#3a2017"/>
+                    <stop id="mm-gradC" offset="100%" stop-color="#1f120d"/>
+                  </radialGradient>
+
+                  <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity="0.25"/>
+                  </filter>
+                </defs>
+
+                <circle r="110" fill="rgba(255,255,255,0.65)"></circle>
+
+                <path id="mm-path" fill="url(#moleGrad)" filter="url(#softShadow)"></path>
+                <g id="mm-speckles"></g>
+                <path id="mm-stroke" fill="none" stroke="rgba(20,10,8,0.45)" stroke-width="2"></path>
+              </svg>
+            </div>
+
+            <div class="meter mt-8">
+              <div class="row between">
+                <div>
+                  <div class="label">Risk meter</div>
+                  <div class="muted" id="mm-riskText">-</div>
+                </div>
+                <label class="pill">Goal:
+                  <select id="mm-goal">
+                    <option value="benign">Make it benign</option>
+                    <option value="suspicious">Make it suspicious</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="bar" aria-label="Risk meter bar">
+                <div class="fill" id="mm-riskFill"></div>
+              </div>
+
+              <div class="hint" id="mm-hint" aria-live="polite"></div>
+
+              <div class="row gap">
+                <button class="btn btn-ghost" id="mm-randomize">Randomize</button>
+                <button class="btn btn-primary" id="mm-check">Check</button>
+              </div>
+
+              <div class="slides-cta">
+                <button class="btn btn-primary" id="to-game2">Continue to DNA Game</button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Image, actions, feedback, CTA -->
+        <!-- Controls + ABCDE guide -->
         <div class="span-4 sm:span-8 md:span-6 lg:span-6">
-          <div class="g1-stage mt-8">
-            <figure class="g1-figure">
-              <img id="g1-img" alt="Dermatoscopy example" />
-              <figcaption id="g1-caption" class="muted"></figcaption>
-            </figure>
+          <div class="card mt-8">
+            <h3 class="subtitle">ABCDE controls</h3>
 
-            <div class="g1-actions">
-              <button class="btn btn-good" id="g1-guess-healthy">Looks benign</button>
-              <button class="btn btn-bad" id="g1-guess-suspicious">Looks suspicious</button>
-              <button id="g1-next" class="btn btn-ghost" title="Skip to next image">Skip</button>
+            <div class="control">
+              <div class="row between">
+                <label for="mm-a">A - Asymmetry</label>
+                <span class="muted" id="mm-aVal">20%</span>
+              </div>
+              <input id="mm-a" type="range" min="0" max="100" value="20" />
+              <p class="muted">Higher = one side differs more.</p>
             </div>
 
-            <div id="g1-feedback" class="feedback" aria-live="polite"></div>
-          </div>
+            <div class="control">
+              <div class="row between">
+                <label for="mm-b">B - Border irregularity</label>
+                <span class="muted" id="mm-bVal">25%</span>
+              </div>
+              <input id="mm-b" type="range" min="0" max="100" value="25" />
+              <p class="muted">Higher = jagged/uneven outline.</p>
+            </div>
 
-          <div class="slides-cta">
-            <button class="btn btn-primary" id="to-game2" disabled>Continue to DNA Game</button>
+            <div class="control">
+              <div class="row between">
+                <label for="mm-c">C - Color variation</label>
+                <span class="muted" id="mm-cVal">20%</span>
+              </div>
+              <input id="mm-c" type="range" min="0" max="100" value="20" />
+              <p class="muted">Higher = more shades + speckles.</p>
+            </div>
+
+            <div class="control">
+              <div class="row between">
+                <label for="mm-d">D - Diameter (size)</label>
+                <span class="muted" id="mm-dVal">35%</span>
+              </div>
+              <input id="mm-d" type="range" min="0" max="100" value="35" />
+              <p class="muted">Higher = larger mole.</p>
+            </div>
+
+            <div class="control">
+              <div class="row between">
+                <label for="mm-e">E - Evolution (change)</label>
+                <span class="muted" id="mm-eVal">10%</span>
+              </div>
+              <input id="mm-e" type="range" min="0" max="100" value="10" />
+              <p class="muted">Higher = subtle “changing” wiggle.</p>
+            </div>
+
+            <details class="mt-8">
+              <summary class="muted">ABCDE guide (quick reminder)</summary>
+              <ul class="abcde">
+                <li><b>A</b>symmetry - one half doesn’t match the other</li>
+                <li><b>B</b>order - irregular or jagged edges</li>
+                <li><b>C</b>olor - multiple shades/uneven distribution</li>
+                <li><b>D</b>iameter - larger than ~6 mm</li>
+                <li><b>E</b>volution - changing size/shape/color</li>
+              </ul>
+            </details>
           </div>
         </div>
       </div>
@@ -101,18 +181,16 @@
     <section id="game2" class="section" aria-label="DNA mismatch game">
       <div class="grid">
         <div class="span-4 sm:span-8 md:span-12 lg:span-12">
-          <h2 class="title">Game 2 — DNA Mismatch Finder</h2>
+          <h2 class="title">Game 2 - DNA Mismatch Finder</h2>
 
-          <!-- DNA explainer with larger picture and text below -->
           <figure class="explain-figure card mt-8">
             <img src="images/dna_explainer.png" alt="DNA double helix and base pairing" />
             <figcaption class="muted">
               DNA is made of base pairs: A pairs with T using two hydrogen bonds, and G pairs with C using three.
               Cancer arises from many causes (UV damage, replication errors, environmental factors).
               One pathway is through DNA mutations that change how cells grow and divide.
-              In this class exercise, we focus on one simplified idea: <b>mispairing</b> — bases paired incorrectly
-              (or shown with the wrong number of bonds). It is only one kind of mutation, but it helps you visualize
-              how small errors in DNA could contribute to disease.
+              In this class exercise, we focus on one simplified idea: <b>mispairing</b> - bases paired incorrectly
+              (or shown with the wrong number of bonds).
             </figcaption>
           </figure>
         </div>
@@ -146,9 +224,10 @@
   </main>
 
   <footer class="foot muted">
-    Educational demo only — not a medical device or diagnostic tool.
+    Educational demo only - not a medical device or diagnostic tool.
   </footer>
 
   <script src="game.js"></script>
+  <script src="mole-maker.js"></script>
 </body>
 </html>
