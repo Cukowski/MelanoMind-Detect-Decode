@@ -38,6 +38,7 @@
   const btnContinue = $("#to-game2");
 
   let completed = false;
+  btnContinue.disabled = false;
 
   // Blob path from polar points
   function blobPath({ points = 24, baseR = 58, jagged = 0.2, asym = 0.2, wobble = 0.0, t = 0 }) {
@@ -190,7 +191,6 @@
     riskText.textContent = `${riskLabel(r)} (${pct}%)`;
     hint.textContent = hintFromInputs(A, B, C, D, E);
 
-    if (!completed) setBadge("Live");
   }
 
   function checkWin() {
@@ -202,7 +202,6 @@
 
     if (win) {
       completed = true;
-      btnContinue.disabled = false;
       setBadge("✅ Goal reached!", "ok");
       hint.textContent = "Nice. Now explain which ABCDE sliders pushed the risk up or down - that’s the learning moment.";
     } else {
@@ -221,7 +220,6 @@
     d.value = rnd();
     e.value = rnd();
     completed = false;
-    btnContinue.disabled = true;
     setBadge("Randomized");
     render();
   }
@@ -240,7 +238,6 @@
   goal.addEventListener("change", () => {
     if (completed) {
       completed = false;
-      btnContinue.disabled = true;
       setBadge("Goal changed");
     }
     render(false);
