@@ -1,4 +1,4 @@
-# MelanoMind — Learn & Detect
+# MelanoMind - Learn & Detect
 
 **MelanoMind** is a lightweight, browser-based educational web app that connects **biology** and **software engineering**.  
 It introduces the basics of **skin cancer awareness** and **DNA mutation concepts** through short, interactive learning stages.
@@ -10,7 +10,7 @@ https://cukowski.github.io/MelanoMind-Detect-Decode/
 
 ## Overview
 
-### Stage 0 — Introduction
+### Stage 0 - Introduction
 A **scrollable / sliding intro** explains:
 - The main **types of skin cancer**  
 - What **melanoma** is and why early detection matters  
@@ -22,23 +22,21 @@ Slides move automatically, but users can also **click “Next” / “Prev”** 
 
 ---
 
-### Stage 1 — ABCDE Game
-**Goal:** Identify which mole looks suspicious.
+### Stage 1 - Mole Maker (ABCDE)
+**Goal:** Learn the ABCDE rule by *creating* a stylized mole (no real photos).
 
-- Randomly selects from a pool of **real skin photographs**  
-  (healthy / suspicious × young / old skin).  
-- Uses the **ABCDE** method:
-  - **A**symmetry  
-  - **B**order irregularity  
-  - **C**olor variation  
-  - **D**iameter  
-  - **E**volution (changes over time)
-- Choose “Looks benign” or “Looks suspicious.”  
-- Earn or lose points based on your choices.
+- Adjust sliders for:
+  - **A**symmetry
+  - **B**order irregularity
+  - **C**olor variation
+  - **D**iameter
+  - **E**volution (subtle animated change)
+- A simple, explainable “risk meter” updates live (educational demo only).
+- Choose a goal (“Make it benign” / “Make it suspicious”) and try to reach it.
 
 ---
 
-### Stage 2 — DNA Mismatch Finder
+### Stage 2 - DNA Mismatch Finder
 **Goal:** Detect incorrect DNA base pairing.
 
 - Shows simple base pairs (**A–T = 2 bonds**, **G–C = 3 bonds**).  
@@ -54,7 +52,8 @@ Slides move automatically, but users can also **click “Next” / “Prev”** 
 |------|--------------|
 | `index.html` | Page structure, intro carousel, and scenes |
 | `styles.css` | Responsive, clean layout inspired by Khan Academy |
-| `game.js` | Full logic for the carousel and both games |
+| `game.js` | Logic for the intro carousel + DNA game |
+| `mole-maker.js` | Mole Maker (ABCDE) game logic |
 | `images/` | Real skin lesion photos and DNA diagrams |
 
 ---
@@ -78,7 +77,7 @@ Then open [http://localhost:8080](http://localhost:8080)
 
 1. Push all files to a public GitHub repository.
 2. In **Settings → Pages**, choose branch `main` and folder `/ (root)`.
-3. Wait a few minutes — your app will be live.
+3. Wait a few minutes - your app will be live.
 
 ---
 
